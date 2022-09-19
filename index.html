@@ -1,0 +1,157 @@
+
+  <title>syko</title>
+  <style>
+  a {
+    color: white;
+    text-decoration: none;
+  }
+  a:hover {
+    color: gray;
+  }
+  body{
+    background-image: url("bg.png");
+    background-size: auto;
+  }
+  #typewriter{
+    margin: 1em; 
+    padding: 1em; 
+    color: white; 
+    font-size: 15;
+}
+#typewriter:after {
+  content: "|";
+  -webkit-animation: blink 500ms linear infinite alternate;
+          animation: blink 500ms linear infinite alternate;
+}
+
+@-webkit-keyframes blink{
+  0%{opacity: 0;}
+  100%{opacity: 1;}
+}
+
+@-moz-keyframes blink{
+  0%{opacity: 0;}
+  100%{opacity: 1;}
+}
+
+@keyframes blink{
+  0%{opacity: 0;}
+  100%{opacity: 1;}
+}
+
+#input{
+  background: transparent;
+  color: transparent;
+  resize: none;
+  border: 0 none;
+  width: 100%;
+  font-size: 5em;
+  outline: none;
+  height: 100%;
+  position: absolute;
+  color: white; 
+  font-size: 15;
+
+}
+</style>
+
+<body>
+<div>
+  
+<pre id="typewriter">[syko@SykoV2:~]$cat syko
+    {
+      "me": {
+          "name": "marco",
+          "age": "23",
+          "city": "no",
+          "country": "philippines",
+          "education": "bachelor of science in information technology",
+          "contact": "<a href='mailto:herro@syko.cc'>herro@syko.cc</a>"
+      },
+      "links": {
+          "twitter": "<a href='https://www.twitter.com/deIusionaIism'>delusionalism</a>",
+          "telegram": "sykone",
+          "last.fm": "<a href="https://www.last.fm/user/m4suu">m4suu</a>",
+          "steam": "<a href ="https://steamcommunity.com/id/deIusionalism/">delusionalism</a>",
+          "gbf": "<a href="http://game.granbluefantasy.jp/#profile/16638355">16638355</a>"
+      }
+    }
+
+[syko@SykoV2:~]$ <textarea id="input"></textarea>
+</pre>
+</div>
+<script type="text/javascript">
+  function setupTypewriter(t) {
+      var HTML = t.innerHTML;
+
+      t.innerHTML = "";
+
+      var cursorPosition = 0,
+          tag = "",
+          writingTag = false,
+          tagOpen = false,
+          typeSpeed = 120,
+        tempTypeSpeed = 0;
+
+      var type = function() {
+        
+          if (writingTag === true) {
+              tag += HTML[cursorPosition];
+          }
+
+          if (HTML[cursorPosition] === "<") {
+              tempTypeSpeed = 0;
+              if (tagOpen) {
+                  tagOpen = false;
+                  writingTag = true;
+              } else {
+                  tag = "";
+                  tagOpen = true;
+                  writingTag = true;
+                  tag += HTML[cursorPosition];
+              }
+          }
+          if (!writingTag && tagOpen) {
+              tag.innerHTML += HTML[cursorPosition];
+          }
+          if (!writingTag && !tagOpen) {
+              if (HTML[cursorPosition] === " ") {
+                  tempTypeSpeed = 0;
+              }
+              else {
+                  tempTypeSpeed = (Math.random() * typeSpeed) + 50;
+              }
+              t.innerHTML += HTML[cursorPosition];
+          }
+          if (writingTag === true && HTML[cursorPosition] === ">") {
+              tempTypeSpeed = (Math.random() * typeSpeed) + 50;
+              writingTag = false;
+              if (tagOpen) {
+                  var newSpan = document.createElement("span");
+                  t.appendChild(newSpan);
+                  newSpan.innerHTML = tag;
+                  tag = newSpan.firstChild;
+              }
+          }
+
+          cursorPosition += 1;
+          if (cursorPosition < HTML.length - 1) {
+              setTimeout(type, tempTypeSpeed);
+          }
+
+      };
+
+      return {
+          type: type
+      };
+  }
+
+  var typer = document.getElementById('typewriter');
+
+  typewriter = setupTypewriter(typewriter);
+
+  typewriter.type();
+</script>
+</body>
+
+/* thx to qwertxzy for the site inspo*/
