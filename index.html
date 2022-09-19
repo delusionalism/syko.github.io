@@ -23,7 +23,11 @@
   -webkit-animation: blink 250ms linear infinite alternate;
           animation: blink 250ms linear infinite alternate;
 }
-
+#typewriter:hover{
+  content:"";
+  -webkit-animation: blink 250ms linear infinite alternate;
+          animation: blink 250ms linear infinite alternate;
+}
 @-webkit-keyframes blink{
   0%{opacity: 0;}
   100%{opacity: 1;}
@@ -151,6 +155,17 @@
   typewriter = setupTypewriter(typewriter);
 
   typewriter.type();
+</script>
+  
+<script type="javascript">
+$(document).ready(function() {
+  $('div').click(function(e) {
+    var selected = $(this).attr('class');
+    $('div').not("." + selected).css({
+      'animation': 'out 2s ease forwards 1'
+    }).delay(2000).fadeOut(0);
+  });
+});
 </script>
 </body>
 
